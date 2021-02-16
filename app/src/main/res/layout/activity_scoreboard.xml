@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#5AC2CF">
+
+    <TextView
+        android:id="@+id/titleScoreboard"
+        android:layout_width="333dp"
+        android:layout_height="99dp"
+        android:layout_marginTop="120dp"
+        android:layout_marginBottom="120dp"
+        android:fontFamily="sans-serif"
+        android:gravity="center"
+        android:lineSpacingExtra="10sp"
+        android:text="Scoreboard"
+        android:textAllCaps="true"
+        android:textColor="#0893A5"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        android:typeface="normal"
+        app:layout_constraintBottom_toTopOf="@+id/descriptionOfTheRulesText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="HardcodedText" />
+
+    <Button
+
+
+        android:id="@+id/backFromScoreboard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="120dp"
+        android:text="@string/back"
+        app:backgroundTint="#3F51B5"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="DuplicateIds" />
+
+    <TextView
+        android:id="@+id/scoreText"
+        android:layout_width="186dp"
+        android:layout_height="161dp"
+        android:layout_marginTop="120dp"
+        android:layout_marginBottom="60dp"
+        android:gravity="center"
+        android:text="@string/your_score"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/backFromScoreboard"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleScoreboard" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

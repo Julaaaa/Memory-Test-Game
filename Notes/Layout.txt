@@ -1,0 +1,46 @@
+activity_main.xml ---> MAIN SCREEN
+      MEMORY GAME   text view      id = gameTitle
+      START         button         id = buttonSettings
+      SCOREBOARD    button         id = buttonScoreboard
+      RULES         button         id = buttonRules
+      EXIT          button         id = buttonExit
+
+
+activity_scoreboard.xml ---> SCOREBOARD
+      SCOREBOARD    text view      id = titleScoreboard 
+      Your Socres   text view      id = scoreText
+      Back          button         id = backFromScoreboard
+
+activity_rules.xml ---> RULES
+      RULES         text view      id = rulesTitle    
+      DESCRIPTION   text view      id = descriptionOfTheRulesText    
+      BACK          button         id = backFromTheRules               
+
+
+
+START 
+
+        activity_settings.xml --->  SETTINGS
+        SettingsActivity.class
+            SETTINGS            text view       id = titleSettings    
+        THE AMOUNT OF NUMBER    text view       id = amountOfNumber
+           ENTER NUMBER         editTextNumber  id = giveNumber
+           GAME TIME            text view       id = textGameTime
+         ENETR GAME TIME        editTextTime    id = giveTimeOfTheGame
+            RANDOM NUMBER       checkBox        id = randomNumber
+            BACK                button          id = backFromTheSettings
+            START               button          id = buttonStart
+
+        activity_game.xml ---> GAME SCREEN
+        GameActivity.class
+            TIME                text view      id = textTime
+            POINTS              text view      id = textPoints        
+            EXIT                button         id = backFromTheGame
+
+        activity_save_score.xml ---> SAVE STORE
+        SaveScoreActivity.class
+            SCORE           text view      id = titleScores
+            YOUR NICK       ext view       id = textNickname    
+            ENTER NICK      textMultipleLine id = enterYourName
+            SAVE            button         id = buttonSave
+            CANCEL          button         id = buttonCancel
