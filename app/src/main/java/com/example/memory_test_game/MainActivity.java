@@ -29,7 +29,6 @@ public class MainActivity extends AppCompatActivity  {
         Button start = (Button) findViewById(R.id.buttonSettings);
         Button scoreboard = (Button) findViewById(R.id.buttonScoreboard);
         Button rules = (Button) findViewById(R.id.buttonRules);
-        Button exit = (Button) findViewById(R.id.buttonExit);
 
          start.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,14 +49,6 @@ public class MainActivity extends AppCompatActivity  {
             public void onClick(View v) {
                 Intent intentRules = new Intent(MainActivity.this, RulesActivity.class);
                 startActivity(intentRules);
-            }
-        });
-        exit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-                System.exit(0);
-
             }
         });
     }

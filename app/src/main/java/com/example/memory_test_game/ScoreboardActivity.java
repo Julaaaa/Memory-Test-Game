@@ -20,7 +20,8 @@ public class ScoreboardActivity extends AppCompatActivity implements View.OnClic
 
     private TextView nickText;
     private TextView scoreText;
-    String[] retArray;
+    private String[] retArray;
+    private boolean foundFile;
 
 
 
@@ -29,29 +30,29 @@ public class ScoreboardActivity extends AppCompatActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scoreboard);
 
-        String ret = readFromFile(ScoreboardActivity.this);
-
         nickText = (TextView)findViewById(R.id.nickText);
         scoreText = (TextView)findViewById(R.id.scoreText);
-        retArray = ret.split(",");
-
-        nickText.setText(retArray[0]);
-        scoreText.setText(retArray[1]);
 
         View board = findViewById(R.id.backFromScoreboard);
         board.setOnClickListener(this);
+
+        //Reading the top score from a file
+        String ret = readFromFile(ScoreboardActivity.this);
+
+        //Displaying the top score in TextViews if the file was found
+        if (foundFile) {
+            retArray = ret.split(",");
+
+            nickText.setText(retArray[0]);
+            scoreText.setText(retArray[1]);
+        }
     }
 
     @Override
     public void onClick(View board) {
-        //  if(r.getId() == R.id.){
-        //define a new Intent for the second Activity
         Intent intent = new Intent(this, MainActivity.class);
-        //start the second Activity
         this.startActivity(intent);
     }
-
-
 
     private String readFromFile(Context context) {
 
@@ -72,12 +73,16 @@ public class ScoreboardActivity extends AppCompatActivity implements View.OnClic
 
                 inputStream.close();
                 ret = stringBuilder.toString();
+
+                foundFile = true;
             }
         }
         catch (FileNotFoundException e) {
             Log.e("login activity", "File not found: " + e.toString());
+            foundFile = false;
         } catch (IOException e) {
             Log.e("login activity", "Can not read file: " + e.toString());
+            foundFile = false;
         }
 
         return ret;

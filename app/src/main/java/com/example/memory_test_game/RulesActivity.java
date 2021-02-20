@@ -18,10 +18,7 @@ public class RulesActivity extends AppCompatActivity implements View.OnClickList
     }
     @Override
     public void onClick(View rules) {
-        //  if(r.getId() == R.id.){
-        //define a new Intent for the second Activity
         Intent intent = new Intent(this, MainActivity.class);
-        //start the second Activity
         this.startActivity(intent);
     }
 }

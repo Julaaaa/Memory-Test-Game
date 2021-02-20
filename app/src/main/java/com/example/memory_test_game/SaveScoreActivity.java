@@ -26,62 +26,70 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.Arrays;
 
-public class SaveScoreActivity extends AppCompatActivity implements View.OnClickListener{
+public class SaveScoreActivity extends AppCompatActivity{
 
     private TextView textPoints;
     private TextView textTopScore;
     private TextView titleTopScore;
     private EditText enterYourNick;
     private String data;
-    private int topScore;
+    private int topScore = 0;
     String[] retArray;
     private int points;
+    private boolean foundFile;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_save_score);
 
-
-    //add view points
         Bundle bundle = getIntent().getExtras();
         textPoints = (TextView) findViewById(R.id.points);
         textTopScore = (TextView) findViewById(R.id.topScore);
         titleTopScore = (TextView) findViewById(R.id.titleTopScore);
-        points = bundle.getInt("points");
-
-
-        String ret = readFromFile(SaveScoreActivity.this);
-
-        retArray = ret.split(",");
-        topScore = Integer.parseInt(retArray[1]);
-
-        textPoints.setText(String.valueOf(points));
-        textTopScore.setText(retArray[0]+ ": " + retArray[1]);
-
         enterYourNick = (EditText)findViewById(R.id.entertYourNick);
 
+        //Getting the points value from the previous activity
+        points = bundle.getInt("points");
 
-        // save score
+        //Reading the previous high score from the scoreboard.txt file
+        String ret = readFromFile(SaveScoreActivity.this);
+        //Displaying the scored amount of points
+        textPoints.setText(String.valueOf(points));
+
+        if (foundFile) {
+            //Displaying the top score in TextView if the file was found
+            retArray = ret.split(",");
+            textTopScore.setText(retArray[0]+ ": " + retArray[1]);
+            //Saving the top score for further calculations
+            topScore = Integer.parseInt(retArray[1]);
+
+        }
+
+        Button cancel = (Button) findViewById(R.id.buttonCancel);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentStart = new Intent(SaveScoreActivity.this, MainActivity.class);
+                startActivity(intentStart);
+            }
+        });
+
         Button saveScore = (Button)findViewById(R.id.buttonSave);
         saveScore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Saving the new high score to the file
                 data = String.valueOf(enterYourNick.getText()).concat(",").concat(String.valueOf(topScore));
                 writeToFile(data,SaveScoreActivity.this);
+
                 Intent intentSave = new Intent(SaveScoreActivity.this, ScoreboardActivity.class);
-
-                //Create the bundle
-                Bundle bundle = new Bundle();
-                // Addd points to bundle
-                bundle.putString("data", data);
-                //Add the bundle to the intent
-                intentSave.putExtras(bundle);
-
                 startActivity(intentSave);
             }
         });
 
+        //Checking if a new high score was achieved
         if(topScore < points){
             topScore = points;
             saveScore.setClickable(true);
@@ -91,22 +99,6 @@ public class SaveScoreActivity extends AppCompatActivity implements View.OnClick
         else {
             titleTopScore.setText("Try better next time!\nCurrent top score:");
         }
-
-
-    //back to the main menu
-        Button cancel = (Button) findViewById(R.id.buttonCancel);
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intentStart = new Intent(SaveScoreActivity.this, MainActivity.class);
-                startActivity(intentStart);
-            }
-        });
-    }
-
-
-    @Override
-    public void onClick(View v) {
 
     }
 
@@ -140,18 +132,20 @@ public class SaveScoreActivity extends AppCompatActivity implements View.OnClick
 
                 inputStream.close();
                 ret = stringBuilder.toString();
+
+                foundFile = true;
             }
         }
         catch (FileNotFoundException e) {
             Log.e("login activity", "File not found: " + e.toString());
+            foundFile = false;
         } catch (IOException e) {
             Log.e("login activity", "Can not read file: " + e.toString());
+            foundFile = false;
         }
 
         return ret;
     }
-
-
 }
 
 

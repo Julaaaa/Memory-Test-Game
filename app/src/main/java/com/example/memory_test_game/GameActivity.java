@@ -51,17 +51,22 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     private Handler handler = new Handler();
 
+    //What happens when the game time ends
     private Runnable gameRunnable = new Runnable() {
         @Override
         public void run() {
             playerLoses();
         }
     };
+
+    //What happens when the number display time ends
     private Runnable displayRunnable = new Runnable() {
         @Override
         public void run() {
+            //Hiding the numbers
             hideNumbers();
-            //Initializing the timer resposible for updating the bar
+
+            //Setting up the game time timer bar
             CountDownTimer timer = new CountDownTimer(gameTime,50) {
                 @RequiresApi(api = Build.VERSION_CODES.N)
                 @Override
@@ -74,6 +79,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                     cancel();
                 }
             }.start();
+
             //Setting the new time for the progress bar
             allTime = gameTime;
             endTime = allTime + (int)System.currentTimeMillis();
@@ -85,18 +91,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        //User input
-        Bundle bundle = getIntent().getExtras();
-        count = bundle.getInt("count");
-        displayTime = 1000 * bundle.getInt("displayTime");
-        randomize = bundle.getBoolean("randomize");
-        System.out.println(randomize);
-        numbers = new int[count];
-
-        //Point display
         textPoints = findViewById(R.id.textPoints);
 
-        // Quit the game button
         Button exitFromGame = (Button) findViewById(R.id.backFromTheGame);
         exitFromGame.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,7 +101,16 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intentStart);
             }
         });
-        //Time progress bar
+
+        //User input
+        Bundle bundle = getIntent().getExtras();
+        count = bundle.getInt("count");
+        displayTime = 1000 * bundle.getInt("displayTime");
+        randomize = bundle.getBoolean("randomize");
+        System.out.println(randomize);
+        numbers = new int[count];
+
+        //Setting up the display time timer bar
         progressBar = findViewById(R.id.progressBar);
 
         CountDownTimer timer = new CountDownTimer(displayTime,50) {
@@ -121,11 +126,13 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             }
         }.start();
 
-        //Initializing the board
+        //Initializing the game logic
         initGameLogic();
 
     }
 
+
+    //Checking the win/lose condition
     @Override
     public void onClick(View v) {
 
@@ -143,7 +150,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initGameLogic(){
-        System.out.println(randomize);
         //Randomizing numbers used for the game
         for(int i=0; i< numbers.length; i++){
             if (randomize) {
@@ -224,12 +230,13 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         endTime = allTime + (int)System.currentTimeMillis();
     }
 
+    //What happens when the player wins
     private void playerWins(){
         //Shortening time - increase in difficulty
         gameTime = gameTime - 1 * 1000;
-        //Calcilationg the runds to add after winning
+        //Increasing the round number
         numberOfRounds();
-        //Calculationg the point to add after winning
+        //Calculating the point to add after winning a round
         countPoints();
         //Reseting the game
         resetGame();
@@ -237,17 +244,17 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         initGameLogic();
     }
 
+    //What happens when the player loses
     private void playerLoses(){
-        System.out.println("dsffrfcre");
+        //Turning off the runnable controling the time left for the game
         handler.removeCallbacks(gameRunnable);
 
         Intent intentSave = new Intent(GameActivity.this, SaveScoreActivity.class);
 
-        //Point display
-        textPoints = findViewById(R.id.textPoints);
+        //Sending necessary values to the "Save Score" activity using a bundle
         //Create the bundle
         Bundle bundle = new Bundle();
-        // Addd points to bundle
+        //Add points to bundle
         bundle.putInt("points", points);
         //Add the bundle to the intent
         intentSave.putExtras(bundle);
@@ -255,6 +262,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         startActivity(intentSave);
     }
 
+    //Hiding the numbers on the board
     private void hideNumbers(){
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
@@ -265,6 +273,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         handler.postDelayed(gameRunnable,gameTime);
     }
 
+    //Reseting the game
     private void resetGame(){
         //Stopping the old runnable so a new one can be started
         handler.removeCallbacks(gameRunnable);
@@ -277,15 +286,14 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         clicks = 0;
     }
 
-
-    //counting the number of rounds
+    //Counting the number of rounds
     private void numberOfRounds(){
         round++;
         //Debug: Print out the number of rounds
-       // System.out.println("Round: " + round);
+        //System.out.println("Round: " + round);
     }
 
-    //counting the points scored
+    //Counting the points scored
     private void countPoints(){
         if (randomize == true) {
             points = points + (int) ((5000/displayTime)*(leftTime / 100) * (round * 1.08) * (Math.pow(count, 1.3))*1.05);
@@ -301,6 +309,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         textPoints.setText(String.valueOf(points));
     }
 
+    //Updating the visual state of the progress bar
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void updateProgressBar(){
         leftTime = endTime - (int)System.currentTimeMillis();
