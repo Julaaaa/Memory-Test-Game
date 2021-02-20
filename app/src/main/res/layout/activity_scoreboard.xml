@@ -8,51 +8,64 @@
 
     <TextView
         android:id="@+id/titleScoreboard"
-        android:layout_width="333dp"
-        android:layout_height="99dp"
-        android:layout_marginTop="120dp"
-        android:layout_marginBottom="120dp"
-        android:fontFamily="sans-serif"
+        android:layout_width="250dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginBottom="100dp"
+        android:fontFamily="sans-serif-medium"
         android:gravity="center"
-        android:lineSpacingExtra="10sp"
-        android:text="Scoreboard"
-        android:textAllCaps="true"
+        android:lineSpacingExtra="14sp"
+        android:text="Top score"
         android:textColor="#0893A5"
         android:textSize="36sp"
         android:textStyle="bold"
         android:typeface="normal"
-        app:layout_constraintBottom_toTopOf="@+id/descriptionOfTheRulesText"
+        app:layout_constraintBottom_toTopOf="@+id/nickText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="HardcodedText" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/nickText"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:fontFamily="sans-serif-medium"
+        android:freezesText="true"
+        android:gravity="center"
+        android:textColor="#326B70"
+        android:textSize="30sp"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toTopOf="@+id/scoreText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/scoreText"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:layout_marginBottom="100dp"
+        android:fontFamily="sans-serif-black"
+        android:gravity="center"
+        android:textColor="#683C81"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toTopOf="@+id/backFromScoreboard"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-
-
         android:id="@+id/backFromScoreboard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="120dp"
+        android:layout_marginBottom="100dp"
         android:text="@string/back"
         app:backgroundTint="#3F51B5"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="DuplicateIds" />
+        />
 
-    <TextView
-        android:id="@+id/scoreText"
-        android:layout_width="186dp"
-        android:layout_height="161dp"
-        android:layout_marginTop="120dp"
-        android:layout_marginBottom="60dp"
-        android:gravity="center"
-        android:text="@string/your_score"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/backFromScoreboard"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleScoreboard" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

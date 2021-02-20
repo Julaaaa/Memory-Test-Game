@@ -9,37 +9,37 @@
     <TextView
 
         android:id="@+id/rulesTitle"
-        android:layout_width="126dp"
-        android:layout_height="53dp"
-        android:layout_marginTop="120dp"
-        android:layout_marginBottom="120dp"
-        android:fontFamily="sans-serif"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginBottom="100dp"
+        android:fontFamily="sans-serif-medium"
         android:gravity="center"
-        android:lineSpacingExtra="10sp"
-        android:text="RULES"
-        android:textAllCaps="true"
+        android:lineSpacingExtra="14sp"
+        android:text="Rules"
+        android:textAllCaps="false"
         android:textColor="#0893A5"
         android:textSize="36sp"
         android:textStyle="bold"
         android:typeface="normal"
         app:layout_constraintBottom_toTopOf="@+id/descriptionOfTheRulesText"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="HardcodedText" />
+        app:layout_constraintVertical_bias="0.395" />
 
     <TextView
 
         android:id="@+id/descriptionOfTheRulesText"
-        android:layout_width="281dp"
-        android:layout_height="283dp"
-
-        android:layout_marginBottom="60dp"
+        android:layout_width="311dp"
+        android:layout_height="410dp"
+        android:layout_marginBottom="20dp"
         android:gravity="center"
-        android:lineSpacingExtra="12sp"
-        android:text="Description"
+        android:lineSpacingExtra="14sp"
+        android:text='1. Select the settings you want to play with. The more numbers and the shorter the display time, the more points you will get. You will get additional points if you play with the "Random Numbers" option. \n2. Memorize the positions of the numbers and when they are gone, click them in ascending order as quickly as possible. \n3. Time decreases with each round, but you will also earn more points!  \n4. The game lasts as long as you run out of time, or make a mistake. Have fun!'
         android:textColor="#000000"
-        android:textSize="24sp"
+        android:textSize="15sp"
         android:textStyle="bold|italic"
         app:layout_constraintBottom_toTopOf="@+id/backFromTheRules"
         app:layout_constraintEnd_toEndOf="parent"
@@ -50,12 +50,12 @@
         android:id="@+id/backFromTheRules"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="120dp"
+        android:layout_marginBottom="44dp"
         android:text="Back"
         app:backgroundTint="#3F51B5"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="DuplicateIds" />
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

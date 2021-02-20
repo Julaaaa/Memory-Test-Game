@@ -26,10 +26,6 @@ import java.util.TimerTask;
 
 public class GameActivity extends AppCompatActivity implements View.OnClickListener {
 
-    //User input
-    private boolean randomize = true;
-    private int count = 3;
-    private int displayTime = 1000 * 5;
     //Constants
     private int max_count = 9;
     private int rows = 5;
@@ -37,9 +33,12 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private int gameTime = 1000 * 60;
 
     //Initializing stuff
+    private int count;
+    private int displayTime;
+    private boolean randomize;
+    private int[] numbers;
     private int[][] gameBoard = new int[rows][columns];
     private Button[][] buttons = new Button[rows][columns];
-    private int[] numbers = new int[count];
     private Random random = new Random();
     private int clicks = 0;
     private int round = 0;
@@ -49,7 +48,9 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private int endTime;
     private int leftTime;
     private int allTime;
+
     private Handler handler = new Handler();
+
     private Runnable gameRunnable = new Runnable() {
         @Override
         public void run() {
@@ -79,17 +80,22 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         }
     };
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        //Assigning view IDs to fields
+        //User input
+        Bundle bundle = getIntent().getExtras();
+        count = bundle.getInt("count");
+        displayTime = 1000 * bundle.getInt("displayTime");
+        randomize = bundle.getBoolean("randomize");
+        System.out.println(randomize);
+        numbers = new int[count];
+
         //Point display
         textPoints = findViewById(R.id.textPoints);
+
         // Quit the game button
         Button exitFromGame = (Button) findViewById(R.id.backFromTheGame);
         exitFromGame.setOnClickListener(new View.OnClickListener() {
@@ -137,12 +143,13 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initGameLogic(){
-        System.out.println("d");
-
+        System.out.println(randomize);
         //Randomizing numbers used for the game
         for(int i=0; i< numbers.length; i++){
             if (randomize) {
                 numbers[i] = random.nextInt(max_count)+1;
+                System.out.println(numbers);
+
             }
             else {
                 numbers[i] = random.nextInt(count)+1;
@@ -166,6 +173,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 //        System.out.println(Arrays.toString(numbers));
 
         //Assigning numbers to fields on the board
+        System.out.println(numbers);
+        System.out.println(count);
         for (int i=0; i < count; i++) {
 
             int rowId = random.nextInt(rows);
@@ -217,7 +226,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     private void playerWins(){
         //Shortening time - increase in difficulty
-        gameTime = gameTime - 5 * 1000;
+        gameTime = gameTime - 1 * 1000;
         //Calcilationg the runds to add after winning
         numberOfRounds();
         //Calculationg the point to add after winning
@@ -231,9 +240,19 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private void playerLoses(){
         System.out.println("dsffrfcre");
         handler.removeCallbacks(gameRunnable);
-        Intent intentSave = new Intent(GameActivity.this, SaveScoreActivity.class);
-        startActivity(intentSave);
 
+        Intent intentSave = new Intent(GameActivity.this, SaveScoreActivity.class);
+
+        //Point display
+        textPoints = findViewById(R.id.textPoints);
+        //Create the bundle
+        Bundle bundle = new Bundle();
+        // Addd points to bundle
+        bundle.putInt("points", points);
+        //Add the bundle to the intent
+        intentSave.putExtras(bundle);
+        //Fire the next activity
+        startActivity(intentSave);
     }
 
     private void hideNumbers(){
@@ -262,12 +281,13 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     //counting the number of rounds
     private void numberOfRounds(){
         round++;
-        System.out.println("Round: " + round);
+        //Debug: Print out the number of rounds
+       // System.out.println("Round: " + round);
     }
 
     //counting the points scored
     private void countPoints(){
-        if (randomize = true) {
+        if (randomize == true) {
             points = points + (int) ((5000/displayTime)*(leftTime / 100) * (round * 1.08) * (Math.pow(count, 1.3))*1.05);
         }
         else {
@@ -275,17 +295,18 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         //Debug: Print out the number of points
-        System.out.println("Points scored: " + points);
+        //System.out.println("Points scored: " + points);
 
         //Display the number of points in the field
-        textPoints.setText("Points: " + points);
+        textPoints.setText(String.valueOf(points));
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void updateProgressBar(){
         leftTime = endTime - (int)System.currentTimeMillis();
-        progressBar.setProgress((leftTime*100)/allTime,true);
+        progressBar.setProgress((leftTime*100)/(allTime+1),true);
     }
+
 
 
 }

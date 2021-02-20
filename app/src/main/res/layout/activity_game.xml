@@ -265,34 +265,46 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="36dp">
 
 
         <TextView
             android:id="@+id/textPoints"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_marginStart="188dp"
-            android:layout_marginLeft="188dp"
-            android:layout_marginEnd="83dp"
-            android:layout_marginRight="83dp"
-            android:text="Points: 0"
-            android:textSize="36sp" />
+            android:layout_marginStart="200dp"
+            android:layout_marginLeft="200dp"
+            android:layout_marginEnd="11dp"
+            android:layout_marginRight="11dp"
+            android:gravity="center"
+            android:text=""
+            android:textSize="25dp" />
 
         <Button
             android:id="@+id/backFromTheGame"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="67dp"
+            android:layout_height="38dp"
+            android:text="@string/exit" />
+
+        <TextView
+            android:id="@+id/textNamePoints"
+            android:layout_width="143dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_marginEnd="303dp"
-            android:layout_marginRight="303dp"
-            android:text="@string/exit" />
+            android:layout_marginStart="76dp"
+            android:layout_marginLeft="76dp"
+            android:layout_marginEnd="192dp"
+            android:layout_marginRight="192dp"
+            android:gravity="center"
+            android:text="Points: "
+            android:textSize="25dp" />
 
 
     </RelativeLayout>

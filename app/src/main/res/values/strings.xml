@@ -14,4 +14,7 @@
     <string name="score">Score</string>
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
+    <string name="current_score">Current score</string>
+    <string name="current_top_score">Current top score</string>
+
 </resources>
